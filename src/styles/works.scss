@@ -1,0 +1,155 @@
+@import "variables";
+
+.works{
+    width: 100%;
+    height: 100%;
+    margin-top: 70px;
+
+    h2{
+        margin: 20px;
+        font-size: 24pt;
+        text-align: center;
+    }
+
+    .works-columns{
+        display: flex;
+        justify-content: space-between;
+
+        .column{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 32%;
+            min-height: 400px;
+            height: 100%;
+            border: 1px solid white;
+            border-radius: 20px;
+        }
+
+        .column.Done{
+            .top-item{
+                text-decoration: line-through;
+            }
+        }
+    }
+
+}
+
+.tasks{
+    width: 100%;
+    height: auto;
+}
+
+.work{
+    font-size: 16pt;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+    border: 1px solid $color;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    word-break: break-all;
+
+    .top-item{
+        display: flex;
+        font-size: 20pt;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .item-priority.low{
+        color: #1E90FF;
+    }
+    .item-priority.medium{
+        color: #FEFE22;
+    }
+    .item-priority.high{
+        color: #EE204D;
+    }
+
+    .bottom-item{
+        margin-top: 20px;
+    }
+
+}
+
+.column.Development{
+    .work{
+        background-color: #49678D;
+    }
+}
+
+.column.Done{
+    .work{
+        background-color: #44944A;
+    }
+    .item-title{
+        text-decoration: line-through;
+    }
+}
+
+.item-subtasks{
+    margin-top: 30px;
+
+    .subtask{
+        border: 1px solid gray;
+        padding: 15px;
+        border-radius: 20px;
+        margin-top: 10px;
+    }
+
+    .subtask-top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .subtask-description{
+        margin-top: 30px;
+    }
+}
+
+.btn-subtask{
+    margin-top: 30px;
+}
+
+.task-buttons, .subtask-buttons, .comment-buttons{
+    display: flex;
+    button{
+        width: 80px;
+        font-size: 22pt;
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+.comment{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+.add-comment{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input{
+        width: 90%;
+        font-size: 20pt;
+        padding: 10px 15px;
+        border-radius: 20px;
+    }
+    button{
+        margin-top: 10px;
+    }
+}
+
+.board-title{
+    font-size: 32pt;
+}

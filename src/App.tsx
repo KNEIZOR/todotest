@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./styles/app.scss";
+import AppRouter from "./components/AppRouter";
+import Header from "./components/Header";
+import { useDispatch } from "react-redux";
+import { GetProjectsAction } from "./store/action-creators/todo";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch()
+
+    function getProjects() {
+        const projects = JSON.parse(localStorage.getItem("projects") || "[]")
+        dispatch(GetProjectsAction(projects))
+    }
+
+    useEffect(() => {
+        getProjects()
+    }, [])
+
+    return (
+        <div className="App">
+            <Header />
+            <AppRouter />
+        </div>
+    );
 }
 
 export default App;

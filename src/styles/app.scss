@@ -1,0 +1,95 @@
+@import "variables";
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
+
+body{
+  background-color: $backgroundColor;
+  color: white;
+}
+
+button{
+  width: 100px;
+  height: 40px;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.open{
+  background-color: green;
+  color: white;
+  transition: .5s;
+}
+
+.open:hover{
+  background-color: rgb(3, 188, 3);
+  transition: .5s;
+}
+
+.close{
+  background-color: rgba(0, 0, 0, 0);
+  color: $color;
+  font-size: 24pt;
+  transition: .5s;
+}
+
+.close:hover{
+  color: red;
+  transition: .5s;
+}
+
+.edit{
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  font-size: 24pt;
+  transition: .5s;  
+}
+
+.edit:hover{
+  color: gray;
+  transition: .5s;
+}
+
+
+.add{
+  padding: 0 20px;
+  width: 100%;
+  background-color: rgb(1, 157, 209);
+  color: white;
+  font-size: 20pt;
+  transition: .5s;
+}
+
+.add:hover{
+  background-color: rgb(0, 176, 235);
+  transition: .5s;
+}
+
+.modal__wrapper{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.358);
+  z-index: 999;
+  top: 0;
+  left: 0;
+}
+
+.modal{
+  width: 40vw;
+  min-width: 700px;
+  height: 800px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  background-color: $backgroundColor;
+  color: white;
+}

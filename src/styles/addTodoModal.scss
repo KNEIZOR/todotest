@@ -1,0 +1,46 @@
+.modal{
+    h2{
+        text-align: center;
+        margin-top: 30px;
+        font-size: 40pt;
+    }
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input{
+        width: 80%;
+        margin-top: 30px;
+        padding: 10px 15px;
+        font-size: 16pt;
+    }
+
+    select{
+        cursor: pointer;
+        width: 85%;
+        margin-top: 30px;
+        padding: 10px 15px;
+        font-size: 16pt;
+    }
+
+    .input-file{
+        width: 85%;
+    }
+}
+
+.buttons{
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    right: 70px;
+    bottom: 40px;
+
+    button{
+        width: 180px;
+        font-size: 16pt;
+    }
+}
