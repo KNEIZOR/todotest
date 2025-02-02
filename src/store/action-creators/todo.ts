@@ -64,3 +64,8 @@ export const DeleteCommentAction= (payload: any[]) => ({
     type: TodoAction.DELETE_COMMENT,
     payload
 });
+
+export const SetSubtaskIsCompleteAction= (payload: any[]) => ({
+    type: TodoAction.SET_SUBTASK_COMPLETED,
+    payload
+});

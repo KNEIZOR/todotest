@@ -37,7 +37,6 @@ const Works = () => {
             ],
         },
     ]);
-
     const [currentBoard, setCurrentBoard] = useState({
         id: "1",
         title: "",
@@ -73,7 +72,17 @@ const Works = () => {
         comments: [],
     });
 
-    
+    let countCompleted = 0;
+    let completedMax = boards
+        .map((board) => board.tasks.length)
+        .reduce((sum, i) => sum + i, 0);
+
+    boards.map((board) => {
+        if (board.title === "Done") {
+            countCompleted = board.tasks.length;
+        }
+        return board;
+    });
 
     function getWorkById() {
         const mainWork = todos.find((todo) => todo.id === params.id);
@@ -151,6 +160,9 @@ const Works = () => {
     return (
         <div className="works">
             <h2>{work ? work.title : "title"}</h2>
+            <h2>
+                Completed Task: {countCompleted} | {completedMax}
+            </h2>
             <div className="works-columns">
                 {boards.map((board) => (
                     <BoardComponent

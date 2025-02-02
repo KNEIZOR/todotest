@@ -1,10 +1,13 @@
 import React, { FC } from "react";
 import { IBoard, ITask, ITodo } from "../types/todoType";
 import { useDispatch } from "react-redux";
-import { DeleteSubtaskAction } from "../store/action-creators/todo";
+import {
+    DeleteSubtaskAction,
+    SetSubtaskIsCompleteAction,
+} from "../store/action-creators/todo";
 
 interface ISubtaskProps {
-    subtask: ITask;
+    subtask: any;
     index: number;
     board: IBoard;
     todo: ITodo;
@@ -46,8 +49,42 @@ const SubtaskComponent: FC<ISubtaskProps> = ({
         localStorage.setItem("projects", JSON.stringify(todoArr));
     }
 
+    function setComplete() {
+        dispatch(
+            SetSubtaskIsCompleteAction([todo.id, board.id, task.id, subtask.id])
+        );
+
+        const todoArr = JSON.parse(localStorage.getItem("projects") || "[]");
+        todoArr.map((localTodo: ITodo) => {
+            if (localTodo.id === todo.id) {
+                localTodo.boards.map((localBoard) => {
+                    if (localBoard.id === board.id) {
+                        localBoard.tasks.map((localTask) => {
+                            if (localTask.id === task.id) {
+                                localTask.subtasks.map((localSubtask) => {
+                                    if (localSubtask.id === subtask.id) {
+                                        localSubtask.isComplete =
+                                            !localSubtask.isComplete;
+                                    }
+                                    return localSubtask;
+                                });
+                            }
+                            return localTask;
+                        });
+                    }
+                    return localBoard;
+                });
+            }
+            return localTodo;
+        });
+        localStorage.setItem("projects", JSON.stringify(todoArr));
+    }
+
     return (
-        <div className="subtask">
+        <div
+            className={`subtask ${subtask.isComplete ? "complete" : ""}`}
+            onClick={() => setComplete()}
+        >
             <div className="subtask-top">
                 <div className="subtask-number">
                     {index + 1}. {subtask.title}

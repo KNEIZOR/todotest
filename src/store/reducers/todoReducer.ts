@@ -197,7 +197,36 @@ export const todoReducer = (state = initialState, action: any) => {
                                             (comment) =>
                                                 comment.id !== action.payload[3]
                                         );
-                                    }   
+                                    }
+                                    return task;
+                                });
+                            }
+                            return board;
+                        });
+                    }
+                    return todo;
+                }),
+            };
+
+        case TodoAction.SET_SUBTASK_COMPLETED:
+            return {
+                ...state,
+                todos: state.todos.map((todo) => {
+                    if (todo.id === action.payload[0]) {
+                        todo.boards.map((board) => {
+                            if (board.id === action.payload[1]) {
+                                board.tasks.map((task) => {
+                                    if (task.id === action.payload[2]) {
+                                        task.subtasks.map((subtask) => {
+                                            if (
+                                                subtask.id === action.payload[3]
+                                            ) {
+                                                subtask.isComplete =
+                                                    !subtask.isComplete;
+                                            }
+                                            return subtask;
+                                        });
+                                    }
                                     return task;
                                 });
                             }

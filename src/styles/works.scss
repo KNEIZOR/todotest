@@ -32,7 +32,15 @@
             }
         }
     }
+}
 
+.complete{
+    text-decoration: line-through;
+    background-color: #44944A;
+}
+
+.show{
+    display: none;
 }
 
 .tasks{

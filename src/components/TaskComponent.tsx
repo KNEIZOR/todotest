@@ -17,7 +17,7 @@ interface ItaskComponentProps {
     dragStartHandler: (e: React.DragEvent, board: IBoard, item: ITask) => void;
     dropHandler: (e: React.DragEvent, board: IBoard, item: ITask) => void;
     board: IBoard;
-    item: ITask;
+    item: any;
     index: number;
     todo: ITodo;
 }
@@ -39,14 +39,22 @@ const TaskComponent: FC<ItaskComponentProps> = ({
     const dispatch = useDispatch();
     const [dateNow, setDateNow] = useState(Date.now());
     const date = item.createDate;
-    const resultDate = date.replace(",", "")
+    const resultDate = date.replace(",", "");
     let nowSec = Math.floor((dateNow - item.dateNow) / 1000);
     let nowMin = Math.floor(nowSec / 60);
-    let nowHour = Math.floor(nowMin / 60);  
+    let nowHour = Math.floor(nowMin / 60);
     let nowDay = Math.floor(nowHour / 24);
     const endDate = item.endDate.replace("T", " ");
     const endTime = endDate.split(" ")[1];
     const resultEndDate = endDate.split(" ")[0].split("-").reverse().join(".");
+    const [mini, setMini] = useState(true);
+
+    let countCompletedSubtask = 0;
+    let completedMaxSubtask = item.subtasks.length;
+
+    item.subtasks.map((subtask: any) =>
+        subtask.isComplete ? (countCompletedSubtask += 1) : 0
+    );
 
     if (nowSec >= 60) {
         nowSec = nowSec % 60;
@@ -148,7 +156,12 @@ const TaskComponent: FC<ItaskComponentProps> = ({
                         {index + 1}. {item.title}
                     </div>
                     <div className="task-buttons">
-                        <button className="edit" onClick={() => setIsModal(true)}><i className="fa-solid fa-pen"></i></button>
+                        <button
+                            className="edit"
+                            onClick={() => setIsModal(true)}
+                        >
+                            <i className="fa-solid fa-pen"></i>
+                        </button>
                         <button
                             onClick={() => deleteTask(item.id)}
                             className="close"
@@ -157,8 +170,15 @@ const TaskComponent: FC<ItaskComponentProps> = ({
                         </button>
                     </div>
                 </div>
-                <div className="bottom-item">
-                    <div className="item-description">Description: {item.description}</div>
+                {mini ? (
+                    <button onClick={() => setMini(false)}>Show</button>
+                ) : (
+                    <button onClick={() => setMini(true)}>Hide</button>
+                )}
+                <div className={`bottom-item ${mini ? "show" : ""}`}>
+                    <div className="item-description">
+                        Description: {item.description}
+                    </div>
                     <div className="item-number">№ {item.id}</div>
                     <div className={`item-priority ${item.priority}`}>
                         Priority: {item.priority}
@@ -168,12 +188,15 @@ const TaskComponent: FC<ItaskComponentProps> = ({
                         Date ending: {`${resultEndDate} ${endTime}`}
                     </div>
                     <div className="item-nowDate">
-                        Time at work: {`${nowDay}d ${nowHour}h ${nowMin}m ${nowSec}s`}
+                        Time at work:{" "}
+                        {`${nowDay}d ${nowHour}h ${nowMin}m ${nowSec}s`}
                     </div>
                     <div className="item-file">File: {item.file}</div>
                     <div className="item-subtasks">
-                        <h2>Subtasks:</h2>
-                        {item.subtasks.map((subtask, index) => (
+                        <h2>
+                            Subtasks: {countCompletedSubtask} | {completedMaxSubtask}
+                        </h2>
+                        {item.subtasks.map((subtask: any, index: number) => (
                             <SubtaskComponent
                                 key={subtask.id}
                                 subtask={subtask}
@@ -192,7 +215,7 @@ const TaskComponent: FC<ItaskComponentProps> = ({
                     </button>
                     <div className="item-comments">
                         <h2>Comments:</h2>
-                        {item.comments.map((comment, index) => (
+                        {item.comments.map((comment: any, index: any) => (
                             <CommentComponent
                                 key={comment.id}
                                 comment={comment}
